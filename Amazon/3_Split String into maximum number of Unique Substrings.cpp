@@ -1,0 +1,32 @@
+/*
+Name:Aarav Nigam
+Link:https://leetcode.com/problems/split-a-string-into-the-max-number-of-unique-substrings/
+*/
+#include<bits/stdc++.h>
+using namespace std;
+class Solution {
+public:
+    set<string>st;
+    int ans=0;
+    void dfs(string &s, int idx)
+    {
+        if(st.size()>ans) ans=st.size();
+        if(idx>=s.length()) return;
+        string str="";
+        for(int i=idx ; i<s.length() ; i++)
+        {
+            str += s[i];
+            if(st.find(str)==st.end())
+            {
+                st.insert(str);
+                dfs(s,i+1);
+                st.erase(str);
+            }
+        }
+    }
+    
+    int maxUniqueSplit(string s) {
+        dfs(s,0);
+        return ans;
+    }
+};
